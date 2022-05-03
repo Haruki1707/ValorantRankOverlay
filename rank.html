@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+    <title>Valorant Rank - HarukiDev</title>
+    <link rel="icon" type="image/x-icon" href="ValorRankOverlay.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Baumans&display=swap');
+        * {
+            margin: 0;
+            font-family: 'Baumans', cursive;
+            font-weight: 100;
+            color: white;
+        }
+        #rankImage{
+            display: inline-block;
+            position: absolute;
+            width: 75px;
+            filter: drop-shadow(3px 2px 1px #000000);
+        }
+        #rankText{
+            display: inline-block;
+            position: absolute;
+            font-size: 55px;
+            left: 85px;
+            top: 15px;
+            text-shadow: 3px 2px 1px #000000;
+        }
+        .disclaimer{
+            top: 150vw;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="scripts/script.js"></script>
+</head>
+<body onload="OnLoad()">
+    <img id='rankImage' src='https://media.valorant-api.com/competitivetiers/e4e9a692-288f-63ca-7835-16fbf6234fda/0/smallicon.png'>
+    <span id='rankText'>Loading Rank...</span>
+</body>
+
+</html>
