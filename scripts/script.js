@@ -1,7 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const apiURL = "https://api.henrikdev.xyz/valorant/v1/mmr";
 const defaultImage = "https://media.valorant-api.com/competitivetiers/e4e9a692-288f-63ca-7835-16fbf6234fda/0/smallicon.png";
-var rankText; var rankImage; var region; var user; var refreshSeconds = 60; var AlreadyFetched = false;
+var rankText; var rankImage; var region; var user; var refreshSeconds = 60; var AlreadyFetched = false; var ValAPImageJSON = null;
 
 function OnLoad() {
     rankText = document.getElementById("rankText");
@@ -48,24 +48,34 @@ var getHenrikAPI = function (callback) {
 }
 
 var getValorantAPImage = function (nTier, callback) {
-    getJSON("https://valorant-api.com/v1/competitivetiers", function (err, data) {
-        if (err != null) {
-            callback(defaultImage);
-        }
-        else {
-            var already = false;
-            var currentdata = data.data[Object.keys(data.data).length - 1]["tiers"];
-            currentdata.forEach(tier => {
-                if (nTier === tier.tier) {
-                    callback(tier.smallIcon);
-                    already = true;
-                }
-            });
-            if (already === false) {
+    if(ValAPImageJSON === null){
+        getJSON("https://valorant-api.com/v1/competitivetiers", function (err, data) {
+            if (err != null) {
                 callback(defaultImage);
             }
+            else {
+                ValAPImageJSON = data;
+                selectImage(data, nTier, callback);
+            }
+        });
+    }
+    else{
+        selectImage(ValAPImageJSON, nTier, callback);
+    }
+}
+
+var selectImage = function (data, nTier, callback){
+    var already = false;
+    var currentdata = data.data[Object.keys(data.data).length - 1]["tiers"];
+    currentdata.forEach(tier => {
+        if (nTier === tier.tier) {
+            callback(tier.smallIcon);
+            already = true;
         }
     });
+    if (already === false) {
+        callback(defaultImage);
+    }
 }
 
 var getJSON = function (url, callback) {
