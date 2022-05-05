@@ -1,7 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const apiURL = "https://api.henrikdev.xyz/valorant/v1/mmr";
 const defaultImage = "https://media.valorant-api.com/competitivetiers/e4e9a692-288f-63ca-7835-16fbf6234fda/0/smallicon.png";
-var rankText; var rankImage; var region; var user; var refreshSeconds = 60; var AlreadyFetched = false; var ValAPImageJSON = null;
+var rankText; var rankImage; var region; var user; var refreshSeconds = 30; var AlreadyFetched = false; var HenrikAPIJSON = null; var ValAPImageJSON = null;
 
 function OnLoad() {
     rankText = document.getElementById("rankText");
@@ -26,13 +26,15 @@ function FetchRank() {
             }
         } else {
             AlreadyFetched = true;
-            if(player.currenttierpatched !== null)
-                rankText.innerHTML = `${player.currenttierpatched}: ${player.ranking_in_tier}pts`;
-            else
-                rankText.innerHTML = "No rank";
-            getValorantAPImage(player.currenttier, function (image) {
-                rankImage.src = image;
-            });
+                HenrikAPIJSON = player;
+                if(player.currenttierpatched !== null)
+                    rankText.innerHTML = `${player.currenttierpatched}: ${player.ranking_in_tier}pts`;
+                else
+                    rankText.innerHTML = "No rank";
+
+                getValorantAPImage(player.currenttier, function (image) {
+                    rankImage.src = image;
+                });
         }
     });
 }

@@ -117,7 +117,7 @@
                                     <div class="input-group-text">Refresh Rate</div>
                                 </div>
                                 <input type="number" class="form-control" id="RefreshRate"
-                                    placeholder="60 seconds (default)" autocomplete="off">
+                                    placeholder="30 seconds (default)" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
 
             var url = `${window.location.href.replace("index.html", "").replace("?", "")}rank.html?region=${Region}&user=${Username}/${Tagline}`;
 
-            if (refreshRate !== 60 && refreshRate !== undefined && refreshRate !== "")
+            if (refreshRate !== 30 && refreshRate !== undefined && refreshRate !== "")
                 url += `&refreshRate=${refreshRate}`;
 
             document.getElementById("result").style.visibility = "visible";
