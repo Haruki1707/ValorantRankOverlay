@@ -35,7 +35,7 @@ function getWinLose(){
 
         var currentUID = latestMatch['metadata']['matchid'];
 
-        if(fetchedtUID != currentUID){
+        if(fetchedtUID != currentUID && latestMatch != false){
             
             var thisPlayerData = null;
             latestMatch['players']['all_players'].forEach(player => {
@@ -72,7 +72,7 @@ async function getLatestMacth(){
     else{
         updateText('Error: ' + jsonData['message']);
     }
-    return null;
+    return false;
 }
 
 async function getMatchHistory(){
