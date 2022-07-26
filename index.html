@@ -13,7 +13,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-    <script src="scripts/script.js"></script>
     <title>Valorant Rank Overlay</title>
     <style>
         html,
@@ -122,26 +121,43 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary offset-3 col-6" id="urlButton"
-                        onclick="urlGenerator()">Generate URL</button>
+                        onclick="urlGenerator()">Generate URLs</button>
                 </form>
 
                 <div class="row align-items-center" id="result">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">URL</div>
+                            <div class="input-group-text">Rank URL</div>
                         </div>
-                        <input type="text" class="form-control" id="URLinput" placeholder="URL" disabled>
+                        <input type="text" class="form-control" id="RankURLinput" placeholder="URL" disabled>
                         <div class="input-group-prepend">
-                            <button class="input-group-text" id="copyButton" onclick="CopyURL()">Copy URL</button>
+                            <button class="input-group-text" id="RankcopyButton" onclick="CopyURL(this.id)">Copy Rank URL</button>
                         </div>
                     </div>
                     <small id="emailHelp" class="form-text text-muted">Recommend size for obs -> width: 600 | height: 85</small>
-                    <iframe src="" id="preview" width="600" height="85"></iframe>
+                    <iframe src="" id="previewRank" width="600" height="85"></iframe>
+
+                    <div class="mt-4"></div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Wins-Losts URL</div>
+                        </div>
+                        <input type="text" class="form-control" id="WLURLinput" placeholder="URL" disabled>
+                        <div class="input-group-prepend">
+                            <button class="input-group-text" id="WLcopyButton" onclick="CopyURL(this.id)">Copy W-L URL</button>
+                        </div>
+                    </div>
+                    <small id="emailHelp" class="form-text text-muted">Recommend size for obs -> width: 600 | height: 85</small>
+                    <iframe src="" id="previewWL" width="600" height="85"></iframe>
                 </div>
             </div>
         </div>
     </div>
     <script>
+        var RankOriginal = null;
+        var WLOriginal = null;
+
         function urlGenerator() {
             var Username = document.getElementById("Username").value;
             var Tagline = document.getElementById("Tagline").value;
@@ -153,20 +169,42 @@
             if (Tagline === undefined || Tagline === "")
                 return;
 
-            var url = `${window.location.href.replace("index.html", "").replace("?", "")}rank.html?region=${Region}&user=${Username}/${Tagline}`;
-
+            var commonUrl = `${window.location.href.replace("index.html", "").replace("?", "")}%TYPE%.html?region=${Region}&user=${Username}/${Tagline}`;
             if (refreshRate !== 30 && refreshRate !== undefined && refreshRate !== "")
-                url += `&refreshRate=${refreshRate}`;
+                commonUrl += `&refreshRate=${refreshRate}`;
+
+            var rankUrl = commonUrl.replace("%TYPE%", "rank");
+            var wlUrl = commonUrl.replace("%TYPE%", "WinsLosts");
 
             document.getElementById("result").style.visibility = "visible";
-            document.getElementById("URLinput").value = url;
-            document.getElementById("preview").src = url;
-            document.getElementById("copyButton").innerHTML = "Copy URL";
+
+            document.getElementById("RankURLinput").value = rankUrl;
+            document.getElementById("previewRank").src = rankUrl;
+            
+            document.getElementById("WLURLinput").value = wlUrl;
+            document.getElementById("previewWL").src = wlUrl;
+
+            if(RankOriginal == null && WLOriginal == null){
+                RankOriginal = document.getElementById("RankcopyButton").innerHTML;
+                WLOriginal = document.getElementById("WLcopyButton").innerHTML;
+            }
+
+            document.getElementById("RankcopyButton").innerHTML = RankOriginal;
+            document.getElementById("WLcopyButton").innerHTML = WLOriginal;
         }
 
-        function CopyURL() {
-            navigator.clipboard.writeText(document.getElementById("URLinput").value);
-            document.getElementById("copyButton").innerHTML = "Copied!";
+        function CopyURL(buttonID) {
+            var type;
+
+            if(buttonID.includes('Rank')){
+                type = 'Rank';
+            }
+            else if(buttonID.includes('WL')){
+                type = 'WL';
+            }
+
+            navigator.clipboard.writeText(document.getElementById(type + "URLinput").value);
+            document.getElementById(type + "copyButton").innerHTML = "Copied!";
         }
     </script>
 </body>

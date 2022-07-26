@@ -2,37 +2,11 @@
 <head>
     <title>Valorant Rank - HarukiDev</title>
     <link rel="icon" type="image/x-icon" href="ValorRankOverlay.png">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Baumans&display=swap');
-        * {
-            margin: 0;
-            font-family: 'Baumans', cursive;
-            font-weight: 100;
-            color: white;
-        }
-        #rankImage{
-            display: inline-block;
-            position: absolute;
-        }
-        #rankText{
-            display: inline-block;
-            position: absolute;
-        }
-        .OutshotImage{
-            filter: drop-shadow(4px 4px 1.5px #000000);
-            width: 75px;
-        }
-        .OutshotText{
-            font-size: 55px;
-            left: 85px;
-            top: 15px;
-            text-shadow: 4px 4px 1.5px #000000;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="scripts/script.js"></script>
+    <script src="scripts/rankScript.js"></script>
 </head>
-<body onload="OnLoad()">
+<body onload="OnLoadRank()">
     <img id='rankImage' class="OutshotImage" src='https://media.valorant-api.com/competitivetiers/e4e9a692-288f-63ca-7835-16fbf6234fda/0/smallicon.png'>
     <span id='rankText' class="OutshotText">Loading Rank...</span>
 </body>
