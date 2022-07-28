@@ -1,19 +1,11 @@
-const urlParams = new URLSearchParams(window.location.search);
-const apiURL = "https://api.henrikdev.xyz/valorant/v3/matches";
-var fetchedtUID = null; var nWins = 0; var nLost = 0;
-var W_L_Text; var region; var user; var refreshSeconds = 30; var AlreadyFetched = false;
-
 async function OnLoadWL() {
     W_L_Text = document.getElementById("W_L_Text");
-    region = urlParams.get('region');
-    user = urlParams.get('user');
+    OnLoadCommon();
 
-    if (urlParams.get('refreshRate') != null) {
-        refreshSeconds = urlParams.get('refreshRate');
-    }
-
-    getWinLose();
-    setInterval(getWinLose, refreshSeconds * 1.25 * 1000);
+    setTimeout(function() {
+        getWinLose();
+        setInterval(getWinLose, refreshSeconds * 1000);
+    }, 7500);
 }
 
 function updateText(customText = null){
@@ -76,6 +68,6 @@ async function getLatestMacth(){
 }
 
 async function getMatchHistory(){
-    var response = await fetch(`${apiURL}/${region}/${user}?filter=competitive`);
+    var response = await fetch(`${apiMatchesURL}/${region}/${user}?filter=competitive`);
     return await response.json();
 }

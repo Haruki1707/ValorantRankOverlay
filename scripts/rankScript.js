@@ -1,17 +1,7 @@
-const urlParams = new URLSearchParams(window.location.search);
-const apiURL = "https://api.henrikdev.xyz/valorant/v1/mmr";
-const defaultImage = "https://media.valorant-api.com/competitivetiers/e4e9a692-288f-63ca-7835-16fbf6234fda/0/smallicon.png";
-var rankText; var rankImage; var region; var user; var refreshSeconds = 30; var AlreadyFetched = false; var HenrikAPIJSON = null; var ValAPImageJSON = null;
-
 function OnLoadRank() {
     rankText = document.getElementById("rankText");
     rankImage = document.getElementById("rankImage");
-    region = urlParams.get('region');
-    user = urlParams.get('user');
-
-    if (urlParams.get('refreshRate') != null) {
-        refreshSeconds = urlParams.get('refreshRate');
-    }
+    OnLoadCommon();
 
     FetchRank();
     setInterval(FetchRank, refreshSeconds * 1000);
@@ -32,6 +22,11 @@ function FetchRank() {
                     getValorantAPImage(player.currenttier, function (image) {
                         rankImage.src = image;
                     });
+
+                    //WomboCombo code xd
+                    if(user.includes("KHO Outshot")){
+                        document.getElementById("womboText").innerHTML = "(Wombo Combos)"
+                    }
                 }
                 else{
                     rankText.innerHTML = "No rank";
@@ -43,7 +38,7 @@ function FetchRank() {
 }
 
 var getHenrikAPI = function (callback) {
-    getJSON(`${apiURL}/${region}/${user}`, function (err, data) {
+    getJSON(`${apiRankURL}/${region}/${user}`, function (err, data) {
         if (err != null) {
             callback("Not Found");
         } else {
