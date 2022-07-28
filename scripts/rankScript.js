@@ -1,6 +1,7 @@
 function OnLoadRank() {
     rankText = document.getElementById("rankText");
     rankImage = document.getElementById("rankImage");
+    thisFileName = 'rankScript.js';
     OnLoadCommon();
 
     FetchRank();
@@ -24,7 +25,7 @@ function FetchRank() {
                     });
 
                     //WomboCombo code xd
-                    if(user.includes("KHO Outshot")){
+                    if(user.includes("Outshot")){
                         document.getElementById("womboText").innerHTML = "(Wombo Combos)"
                     }
                 }

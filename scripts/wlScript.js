@@ -1,11 +1,12 @@
 async function OnLoadWL() {
     W_L_Text = document.getElementById("W_L_Text");
+    thisFileName = 'wlScript.js';
     OnLoadCommon();
 
     setTimeout(function() {
         getWinLose();
         setInterval(getWinLose, refreshSeconds * 1000);
-    }, 7500);
+    }, 5000);
 }
 
 function updateText(customText = null){
@@ -57,7 +58,7 @@ function getWinLose(){
 }
 
 async function getLatestMacth(){
-    var jsonData = await getMatchHistory();
+    var jsonData = await getJSONFromURL(`${apiMatchesURL}/${region}/${user}?filter=competitive`);
     if(jsonData['status'] == 200){
         return jsonData['data'][0];
     }
@@ -65,9 +66,4 @@ async function getLatestMacth(){
         updateText('Error: ' + jsonData['message']);
     }
     return false;
-}
-
-async function getMatchHistory(){
-    var response = await fetch(`${apiMatchesURL}/${region}/${user}?filter=competitive`);
-    return await response.json();
 }
