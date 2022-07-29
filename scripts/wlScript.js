@@ -60,9 +60,10 @@ function getWinLose(){
 async function getLatestMacth(){
     var jsonData = await getJSONFromURL(`${apiMatchesURL}/${region}/${user}?filter=competitive`);
     if(jsonData['status'] == 200){
+        AlreadyFetched = true;
         return jsonData['data'][0];
     }
-    else{
+    else if(AlreadyFetched == false){
         updateText('Error: ' + jsonData['message']);
     }
     return false;
