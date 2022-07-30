@@ -1,5 +1,16 @@
 async function OnLoadWL() {
     W_L_Text = document.getElementById("W_L_Text");
+    
+    tempNWins = getCookie('nWins');
+    if(tempNWins != null){
+        nWins = parseInt(tempNWins);
+    }
+
+    tempNLosts = getCookie('nLosts');
+    if(tempNLosts != null){
+        nLosses = parseInt(tempNLosts);
+    }
+    
     thisFileName = 'wlScript.js';
     OnLoadCommon();
 
@@ -11,7 +22,7 @@ async function OnLoadWL() {
 
 function updateText(customText = null){
     if(customText == null){
-        W_L_Text.innerHTML = `W: ${nWins} L: ${nLost}`;
+        W_L_Text.innerHTML = `W: ${nWins} L: ${nLosses}`;
     }
     else{
         W_L_Text.innerHTML = customText;
@@ -45,9 +56,11 @@ function getWinLose(){
                 var thisPlayerEnemyTeam = latestMatch['teams'][enemyTeamKey]
                 if(thisPlayerTeam['has_won'] == true && thisPlayerEnemyTeam['has_won'] == false){
                     nWins++;
+                    setCookie('nWins', nWins, 5);
                 }
                 else if(thisPlayerTeam['has_won'] == false && thisPlayerEnemyTeam['has_won'] == true){
-                    nLost++;
+                    nLosses++;
+                    setCookie('nLosts', nLosses, 5);
                 }
             }
             
