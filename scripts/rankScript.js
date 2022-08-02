@@ -26,7 +26,7 @@ function FetchRank() {
 
                     //WomboCombo code xd
                     if(user.includes("Outshot")){
-                        document.getElementById("womboText").innerHTML = "(Wombo Combos)"
+                        document.getElementById("womboText").innerHTML = "(Comunicacion importante!!!)"
                     }
                 }
                 else{
