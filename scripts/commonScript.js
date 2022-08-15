@@ -1,5 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-const RepoDeployment = "https://api.github.com/repos/Haruki1707/ValorantRankOverlay/deployments";
+const RepoDeployment = "https://api.github.com/repos/Haruki1707/ValorantRankOverlay/deployments?per_page=1";
 const apiRankURL = "https://api.henrikdev.xyz/valorant/v1/mmr";
 const apiMatchesURL = "https://api.henrikdev.xyz/valorant/v3/matches";
 const defaultImage = "https://media.valorant-api.com/competitivetiers/e4e9a692-288f-63ca-7835-16fbf6234fda/0/smallicon.png";
