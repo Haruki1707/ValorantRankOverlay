@@ -36,6 +36,10 @@ function getWinLose(){
             return;
         }
 
+        if(user.includes("Outshot")){
+            document.getElementById("custom").innerHTML = "<img src='https://donkamaronlzc.com/wp-content/uploads/cropped-Don-Kamaron-Logo_1.png' height='65'>";
+        }
+
         var currentUID = latestMatch['metadata']['matchid'];
 
         if(fetchedtUID != currentUID && latestMatch != false){
