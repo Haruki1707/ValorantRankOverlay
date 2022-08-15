@@ -1,9 +1,9 @@
 const urlParams = new URLSearchParams(window.location.search);
-const apiRepoFileURL = "https://api.github.com/repos/Haruki1707/ValorantRankOverlay/contents/scripts/";
+const RepoDeployment = "https://api.github.com/repos/Haruki1707/ValorantRankOverlay/deployments";
 const apiRankURL = "https://api.henrikdev.xyz/valorant/v1/mmr";
 const apiMatchesURL = "https://api.henrikdev.xyz/valorant/v3/matches";
 const defaultImage = "https://media.valorant-api.com/competitivetiers/e4e9a692-288f-63ca-7835-16fbf6234fda/0/smallicon.png";
-var thisFileSHA = null; var thisFileName;
+var DeploymentID = null;
 var fetchedtUID = null; var nWins = 0; var nLosses = 0; var W_L_Text; var rankText; var rankImage;
 var region; var user; var refreshSeconds = 30; var AlreadyFetched = false; var HenrikAPIJSON = null; var ValAPImageJSON = null;
 
@@ -15,23 +15,18 @@ function OnLoadCommon(){
         refreshSeconds = urlParams.get('refreshRate');
     }
 
-    checkSHAtoReload();
-    setInterval(checkSHAtoReload, 2.5 * 1000 * 60);
+    checkDeploymentIDtoReload();
+    setInterval(checkDeploymentIDtoReload, 2.5 * 1000 * 60);
 }
 
-function checkSHAtoReload(){
-    if(thisFileName == null){
-        alert("FILE NAME SHOULD BE DETERMINED BEFORE ONLOADCOMMON()");
-        return;
-    }
-    
-    getJSONFromURL(`${apiRepoFileURL}${thisFileName}`).then(function (jsonData){
-        if(thisFileSHA == null){
-            thisFileSHA = jsonData['sha'];
-            console.log(`${thisFileName} SHA obtained`);
+function checkDeploymentIDtoReload(){    
+    getJSONFromURL(RepoDeployment).then(function (jsonData){
+        if(DeploymentID == null){
+            DeploymentID = jsonData[0]['id'];
+            console.log(`Deployment ID obtained`);
         }
 
-        if(thisFileSHA != jsonData['sha']){
+        if(DeploymentID != jsonData[0]['id']){
             location.reload();
         }
     });

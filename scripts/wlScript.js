@@ -11,7 +11,6 @@ async function OnLoadWL() {
         nLosses = parseInt(tempNLosts);
     }
     
-    thisFileName = 'wlScript.js';
     OnLoadCommon();
 
     setTimeout(function() {

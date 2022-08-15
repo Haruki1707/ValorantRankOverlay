@@ -1,7 +1,6 @@
 function OnLoadRank() {
     rankText = document.getElementById("rankText");
     rankImage = document.getElementById("rankImage");
-    thisFileName = 'rankScript.js';
     OnLoadCommon();
 
     FetchRank();
