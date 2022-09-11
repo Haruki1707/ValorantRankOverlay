@@ -24,9 +24,9 @@ function FetchRank() {
                     });
 
                     //WomboCombo code xd
-                    /*if(user.includes("Outshot")){
-                        document.getElementById("womboText").innerHTML = "(Comunicacion importante!!!)"
-                    }*/
+                    if(user.includes("Outshot")){
+                        document.getElementById("womboText").innerHTML = "Buena Out :|"
+                    }
                 }
                 else{
                     rankText.innerHTML = "No rank";
